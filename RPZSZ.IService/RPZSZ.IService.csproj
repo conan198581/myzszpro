@@ -41,9 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdminUserService.cs" />
     <Compile Include="ICityService.cs" />
     <Compile Include="IServiceSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RPZSZ.CommonMVC\RPZSZ.CommonMVC.csproj">
+      <Project>{f27db8fe-efcf-4a31-9151-192b73ece0f1}</Project>
+      <Name>RPZSZ.CommonMVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RPZSZ.DTO\RPZSZ.DTO.csproj">
+      <Project>{566547aa-63ff-4306-a040-67d8d22b34b2}</Project>
+      <Name>RPZSZ.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

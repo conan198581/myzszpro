@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUserService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="CityService.cs" />
     <Compile Include="Entities\AdminLogEntity.cs" />
@@ -114,6 +115,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RPZSZ.CommonMVC\RPZSZ.CommonMVC.csproj">
+      <Project>{f27db8fe-efcf-4a31-9151-192b73ece0f1}</Project>
+      <Name>RPZSZ.CommonMVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RPZSZ.Common\RPZSZ.Common.csproj">
+      <Project>{deb68f09-e475-439f-8aa7-71164092e035}</Project>
+      <Name>RPZSZ.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RPZSZ.DTO\RPZSZ.DTO.csproj">
+      <Project>{566547aa-63ff-4306-a040-67d8d22b34b2}</Project>
+      <Name>RPZSZ.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RPZSZ.IService\RPZSZ.IService.csproj">
       <Project>{b252d4d7-0fc9-46af-964a-1efc70401198}</Project>
       <Name>RPZSZ.IService</Name>
