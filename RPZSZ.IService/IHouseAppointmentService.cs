@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPZSZ.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,9 @@ namespace RPZSZ.IService
         /// <param name="visitData">预约时间</param>
         /// <returns></returns>
         long AddNew(long? userId, string name, string phoneNum, long houseId, DateTime visitData);
+        HouseAppointmentDTO GetHouseAppointmentById(long houseAppoimentId);
+        HouseAppointmentDTO[] GetPageData(long cityId, string status, int startIndex, int pageSize);
+        long GetTotalCount(long cityId, string status);
 
 
     }
