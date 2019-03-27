@@ -48,6 +48,7 @@
     <Compile Include="CommunityDTO.cs" />
     <Compile Include="HouseAppointmentDTO.cs" />
     <Compile Include="HouseDTO.cs" />
+    <Compile Include="PermissionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

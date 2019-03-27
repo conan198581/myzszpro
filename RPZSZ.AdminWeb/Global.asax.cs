@@ -33,7 +33,10 @@ namespace RPZSZ.AdminWeb
 
             ModelBinders.Binders.Add(typeof(string), new TrimToDBCModelBinder());
             log4net.Config.XmlConfigurator.Configure();
+
+
             GlobalFilters.Filters.Add(new ZSZExceptionFilter());
+            GlobalFilters.Filters.Add(new JsonResultFilter());
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -1319,6 +1319,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Filters\ZSZExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1421,6 +1422,8 @@
     <Content Include="skin\yellow\Thumbs.db" />
     <Content Include="Views\Main\Login.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Permission\List.cshtml" />
+    <Content Include="Views\Permission\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1442,6 +1445,14 @@
     <ProjectReference Include="..\RPZSZ.CommonMVC\RPZSZ.CommonMVC.csproj">
       <Project>{f27db8fe-efcf-4a31-9151-192b73ece0f1}</Project>
       <Name>RPZSZ.CommonMVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RPZSZ.Common\RPZSZ.Common.csproj">
+      <Project>{DEB68F09-E475-439F-8AA7-71164092E035}</Project>
+      <Name>RPZSZ.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RPZSZ.DTO\RPZSZ.DTO.csproj">
+      <Project>{566547aa-63ff-4306-a040-67d8d22b34b2}</Project>
+      <Name>RPZSZ.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\RPZSZ.IService\RPZSZ.IService.csproj">
       <Project>{b252d4d7-0fc9-46af-964a-1efc70401198}</Project>
