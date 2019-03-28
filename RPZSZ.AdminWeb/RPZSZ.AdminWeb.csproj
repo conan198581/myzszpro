@@ -1320,6 +1320,7 @@
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Filters\ZSZExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1425,6 +1426,8 @@
     <Content Include="Views\Permission\List.cshtml" />
     <Content Include="Views\Permission\Add.cshtml" />
     <Content Include="Views\Permission\Edit.cshtml" />
+    <Content Include="Views\Role\List.cshtml" />
+    <Content Include="Views\Role\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
