@@ -1424,6 +1424,7 @@
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Permission\List.cshtml" />
     <Content Include="Views\Permission\Add.cshtml" />
+    <Content Include="Views\Permission\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

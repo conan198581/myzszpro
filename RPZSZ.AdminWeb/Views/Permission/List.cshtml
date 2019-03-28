@@ -30,34 +30,36 @@
 <body>
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="pd-20">
-        <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加权限','admin-role-add.html','800')"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a> </span> <span class="r">共有数据：<strong>@Model.Length</strong> 条</span> </div>
-        <table class="table table-border table-bordered table-hover table-bg">
-            <thead>
-                <tr>
-                    <th scope="col" colspan="6">权限管理</th>
-                </tr>
-                <tr class="text-c">
-                    <th width="25"><input type="checkbox" value="" name=""></th>
-                    <th width="40">ID</th>
-                    <th width="200">权限名称</th>
-                    <th width="300">描述</th>
-                    <th width="70">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="" name=""></td>
-                        <td>@item.Id</td>
-                        <td>@item.Name</td>
-                        <td>@item.Description</td>
-                        <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('权限编辑','admin-role-add.html','1')" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+        <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加权限','/permission/add','800')"><i class="Hui-iconfont">&#xe600;</i> 添加权限</a> </span> <span class="r">共有数据：<strong>@Model.Length</strong> 条</span> </div>
+        <form id="listform">
+            <table class="table table-border table-bordered table-hover table-bg">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="6">权限管理</th>
                     </tr>
-                }
+                    <tr class="text-c">
+                        <th width="25"><input type="checkbox" value="" name=""></th>
+                        <th width="40">ID</th>
+                        <th width="200">权限名称</th>
+                        <th width="300">描述</th>
+                        <th width="70">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-c">
+                            <td><input type="checkbox" value="@item.Id" name="ids"></td>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_role_edit('权限编辑','/permission/edit/@item.Id',@item.Id)" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_role_del(this,@item.Id)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                        </tr>
+                    }
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </form>
     </div>
     <script type="text/javascript" src="~/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="~/lib/layer/1.9.3/layer.js"></script>
@@ -82,7 +84,25 @@ function admin_role_del(obj,id){
 		$(obj).parents("tr").remove();
 		layer.msg('已删除!',{icon:1,time:1000});
 	});
-}
+ }
+    function datadel() {
+        var formData = $("#listform").serializeArray();
+        $.ajax({
+            url: "/permission/BatchDelete",
+            type: "post",
+            datatype: "json",
+            data: formData,
+            success: function (respData) {
+                if (respData.status == "ok") {
+                    location.reload();
+                }
+                
+            },
+            error: function () {
+                layer.msg("通信失败");
+            }
+        });
+    }
     </script>
 </body>
 </html>

@@ -21,6 +21,30 @@ namespace RPZSZ.Service
             }
         }
 
+        public void BatchDel(long[] ids)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<PermissionEntity> baseService = new BaseService<PermissionEntity>(ctx);
+                foreach (var id in ids)
+                {
+                    baseService.MarkDelete(id);
+                }
+            }
+        }
+
+        public int Edit(long id, string name, string description)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<PermissionEntity> baseService = new BaseService<PermissionEntity>(ctx);
+                var entity = baseService.GetById(id);
+                entity.Name = name;
+                entity.Description = description;
+                return ctx.SaveChanges();
+            }
+        }
+
         public PermissionDTO[] GetAll()
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
@@ -28,6 +52,15 @@ namespace RPZSZ.Service
                 BaseService<PermissionEntity> baseService = new BaseService<PermissionEntity>(ctx);
                 return baseService.GetAll().ToList().Select(x => ToDTO(x)).ToArray();
                 
+            }
+        }
+
+        public PermissionDTO GetById(long id)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<PermissionEntity> baseService = new BaseService<PermissionEntity>(ctx);
+                return ToDTO(baseService.GetById(id));
             }
         }
 

@@ -12,5 +12,11 @@ namespace RPZSZ.IService
         PermissionDTO[] GetAll();
 
         long Add(string name, string description);
+
+        PermissionDTO GetById(long id);
+
+        int Edit(long id, string name, string description);
+
+        void BatchDel(long[] ids);
     }
 }
