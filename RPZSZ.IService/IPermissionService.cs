@@ -18,5 +18,7 @@ namespace RPZSZ.IService
         int Edit(long id, string name, string description);
 
         void BatchDel(long[] ids);
+
+        PermissionDTO[] GetByRoleId(long roleId);
     }
 }

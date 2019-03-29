@@ -1333,6 +1333,8 @@
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\NotSupportedHandler.cs" />
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\PathFormater.cs" />
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\UploadHandler.cs" />
+    <Compile Include="Models\RoleEditPostModel.cs" />
+    <Compile Include="Models\RoleEditViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1428,6 +1430,7 @@
     <Content Include="Views\Permission\Edit.cshtml" />
     <Content Include="Views\Role\List.cshtml" />
     <Content Include="Views\Role\Add.cshtml" />
+    <Content Include="Views\Role\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1442,7 +1445,6 @@
     <Folder Include="lib\Highcharts\4.1.7\exporting-server\java\highcharts-export\highcharts-export-web\target\generated-sources\annotations\" />
     <Folder Include="lib\Highcharts\4.1.7\exporting-server\java\highcharts-export\highcharts-export-web\target\surefire\" />
     <Folder Include="lib\ueditor\1.4.3\net\Bin\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\City\" />
   </ItemGroup>
   <ItemGroup>

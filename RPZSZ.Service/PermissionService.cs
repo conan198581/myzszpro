@@ -3,6 +3,7 @@ using RPZSZ.IService;
 using RPZSZ.Service.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,6 +62,15 @@ namespace RPZSZ.Service
             {
                 BaseService<PermissionEntity> baseService = new BaseService<PermissionEntity>(ctx);
                 return ToDTO(baseService.GetById(id));
+            }
+        }
+
+        public PermissionDTO[] GetByRoleId(long roleId)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<RoleEntity> baseService = new BaseService<RoleEntity>(ctx);
+                return baseService.GetById(roleId).Permissions.ToList().Select(x => ToDTO(x)).ToArray();
             }
         }
 

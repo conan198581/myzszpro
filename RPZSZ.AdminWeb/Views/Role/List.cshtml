@@ -77,10 +77,26 @@
         function admin_role_del(obj, id) {
             layer.confirm('角色删除须谨慎，确认要删除吗？', function (index) {
                 //此处请求后台程序，下方是成功后的前台处理……
+                $.ajax({
+                    url: "/role/delete",
+                    type: "post",
+                    datatype: "json",
+                    data: { id: id },
+                    success: function (respdata) {
+                        if (respdata.status == "ok") {
+                            $(obj).parents("tr").remove();
+                            layer.msg('已删除!', { icon: 1, time: 1000 });
+                        }
+                        else {
+                            layer.msg('删除失败', { icon: 2, time: 1000 });
+                        }
+                    },
+                    error: function () {
+                        layer.msg('通信失败', { icon: 2, time: 1000 });
+                    }
+                });
 
-
-                $(obj).parents("tr").remove();
-                layer.msg('已删除!', { icon: 1, time: 1000 });
+               
             });
         }
         function datadel() {
