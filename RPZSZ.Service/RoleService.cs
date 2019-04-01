@@ -119,5 +119,14 @@ namespace RPZSZ.Service
                 }
             }
         }
+
+        public RoleDTO[] GetRoleByUserId(long userId)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<AdminUserEntity> userService = new BaseService<AdminUserEntity>(ctx);
+                return userService.GetById(userId).Roles.ToList().Select(x => ToDTO(x)).ToArray();
+            }
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace RPZSZ.Service
                     Email = x.Email,
                     CreateTime = x.CreateDateTime,
                     CityId = x.CityId,
-                    CtiyName = x.City.Name,
+                    CtiyName = x.CityId==null?"总部":x.City.Name,
                     LoginErrorTimes = x.LoginErrorTimes,
                     LastLoginErrorDateTime = x.LastLoginErrorDateTime
                 });
@@ -120,18 +120,19 @@ namespace RPZSZ.Service
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 BaseService<AdminUserEntity> baseService = new BaseService<AdminUserEntity>(ctx);
-                var adminUserlist = baseService.GetAll().Where(x => x.PhoneNum == phoneNum);
-                if (adminUserlist == null && adminUserlist.Count() <= 0)
+                var adminUserlist = baseService.GetAll().Include(x=>x.City).AsNoTracking().Where(x => x.PhoneNum == phoneNum);
+                var count = adminUserlist.Count();
+                if (count<= 0)
                 {
                     return null;
                 }
-                else if (adminUserlist.Count() > 2)
+                else if (count > 2)
                 {
                     throw new Exception($"找到有多个手机号为{phoneNum}的记录，请联系管理员");
                 }
                 else
                 {
-                    var adminUserItem = adminUserlist.Include(x => x.City).SingleOrDefault();
+                    var adminUserItem = adminUserlist.SingleOrDefault();
                     return ToDTO(adminUserItem);
                 }
             }
@@ -178,15 +179,19 @@ namespace RPZSZ.Service
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
-                string salt = CommonHelper.CreateVerifyCode(5);
-                string securityPassword = CommonHelper.CalcMD5(password + salt);
+                
                 BaseService<AdminUserEntity> baseService = new BaseService<AdminUserEntity>(ctx);
                 var item = baseService.GetById(adminUserId);
                 item.Name = name;
                 item.PhoneNum = phoneNum;
                 item.Email = email;
-                item.PasswordSalt = salt;
-                item.PasswordHash = securityPassword;
+                if (password != null)
+                {
+                    string salt = CommonHelper.CreateVerifyCode(5);
+                    string securityPassword = CommonHelper.CalcMD5(password + salt);
+                    item.PasswordSalt = salt;
+                    item.PasswordHash = securityPassword;
+                }
                 item.CityId = cityId;
                 ctx.SaveChanges();  
             }
@@ -226,6 +231,23 @@ namespace RPZSZ.Service
         public void ResetLoginError(long id)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateRoleByAdminUserId(long userId, long[] roleIds)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<AdminUserEntity> baseService = new BaseService<AdminUserEntity>(ctx);
+                var userEntity = baseService.GetById(userId);
+                userEntity.Roles.Clear();
+                BaseService<RoleEntity> roleService = new BaseService<RoleEntity>(ctx);
+                var roleList = roleService.GetAll().Where(x => roleIds.Contains(x.Id));
+                foreach (var item in roleList)
+                {
+                    userEntity.Roles.Add(item);
+                }
+                ctx.SaveChanges();
+            }
         }
     }
 }

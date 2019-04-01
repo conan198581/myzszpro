@@ -1,4 +1,5 @@
-﻿using RPZSZ.IService;
+﻿using RPZSZ.DTO;
+using RPZSZ.IService;
 using RPZSZ.Service.Entities;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,24 @@ namespace RPZSZ.Service
                 CityEntity cityEntity = new CityEntity() { Name = cityName };
                 return baseService.AddItem(cityEntity);
             }
+        }
+
+        public CityDTO[] GetAll()
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<CityEntity> baseService = new BaseService<CityEntity>(ctx);
+                return baseService.GetAll().ToList().Select(x=>ToDTO(x)).ToArray();
+            }
+        }
+
+        public CityDTO ToDTO(CityEntity cityEntity)
+        {
+            var citydto = new CityDTO();
+            citydto.Id = cityEntity.Id;
+            citydto.Name = cityEntity.Name;
+            citydto.CreateTime = cityEntity.CreateDateTime;
+            return citydto;
         }
     }
 }
