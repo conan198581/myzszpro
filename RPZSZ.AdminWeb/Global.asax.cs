@@ -30,14 +30,16 @@ namespace RPZSZ.AdminWeb
             #endregion
 
 
-
             ModelBinders.Binders.Add(typeof(string), new TrimToDBCModelBinder());
             log4net.Config.XmlConfigurator.Configure();
 
 
+            /*
             GlobalFilters.Filters.Add(new ZSZExceptionFilter());
             GlobalFilters.Filters.Add(new JsonResultFilter());
-
+            */
+            FilterConfig.RegisterFilters(GlobalFilters.Filters);
+            
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

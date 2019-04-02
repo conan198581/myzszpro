@@ -29,7 +29,11 @@ namespace RPZSZ.AdminWeb.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            if (loginViewModel.VerifyCode != (string)Session["verifyCode"])
+            if (!ModelState.IsValid)
+            {
+                return Json(new AjaxResult<string> { Status = "error", ErrorMsg = "modelstate报错信息" });
+            }
+            if (loginViewModel.VerifyCode != (string)TempData["verifyCode"])
             {
                 return Json(new AjaxResult<string> { Status = "error", ErrorMsg = "验证码错误" });
             }
@@ -47,7 +51,7 @@ namespace RPZSZ.AdminWeb.Controllers
         public ActionResult CreateVerifyCode()
         {
             string verifyCode = CommonHelper.CreateVerifyCode(4);
-            Session["verifyCode"] = verifyCode;
+            TempData["verifyCode"] = verifyCode;
             MemoryStream ms = ImageFactory.GenerateImage(verifyCode, 60, 100, 20, 6);
             return File(ms, "image/jpeg");
         }
