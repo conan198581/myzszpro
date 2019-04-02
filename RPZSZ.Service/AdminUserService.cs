@@ -249,5 +249,13 @@ namespace RPZSZ.Service
                 ctx.SaveChanges();
             }
         }
+
+        public void BatchDelete(long[] ids)
+        {
+            foreach (var id in ids)
+            {
+                MarkDeleted(id);
+            }
+        }
     }
 }

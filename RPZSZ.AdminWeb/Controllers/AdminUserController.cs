@@ -16,7 +16,7 @@ namespace RPZSZ.AdminWeb.Controllers
         public IRoleService RoleService { get; set; }
         public ICityService CityService { get; set; }
 
-        
+
         // GET: AdminUser
         public ActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace RPZSZ.AdminWeb.Controllers
         public ActionResult Add()
         {
             AdminUserAddGetModel viewModel = new AdminUserAddGetModel();
-            
+
             var roleList = RoleService.GetAll();
             var cityList = CityService.GetAll().ToList();
             cityList.Insert(0, new DTO.CityDTO() { Id = 0, Name = "总部" });
@@ -77,7 +77,7 @@ namespace RPZSZ.AdminWeb.Controllers
             viewModel.RoleDTOs = RoleService.GetAll();
             viewModel.OwnRoleDTOs = RoleService.GetRoleByUserId(id);
             return View(viewModel);
-            
+
         }
 
         [HttpPost]
@@ -94,7 +94,19 @@ namespace RPZSZ.AdminWeb.Controllers
                 cityId = viewModel.CityId;
             }
             AdminUserService.UpdateAdminUser(viewModel.Id, viewModel.Name, viewModel.PhoneNum, viewModel.Email, viewModel.Password, cityId);
-            AdminUserService.UpdateRoleByAdminUserId(viewModel.Id,viewModel.RoleIds);
+            AdminUserService.UpdateRoleByAdminUserId(viewModel.Id, viewModel.RoleIds);
+            return Json(new AjaxResult<string> { Status = "ok" });
+        }
+
+        public ActionResult Delete(long id)
+        {
+            AdminUserService.MarkDeleted(id);
+            return Json(new AjaxResult<string> { Status = "ok" });
+        }
+
+        public ActionResult BatchDelete(long[] ids)
+        {
+            AdminUserService.BatchDelete(ids);
             return Json(new AjaxResult<string> { Status = "ok" });
         }
     }
