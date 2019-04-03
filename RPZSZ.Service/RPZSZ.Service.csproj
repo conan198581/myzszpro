@@ -114,6 +114,7 @@
     <Compile Include="ModelConfig\UserConfig.cs" />
     <Compile Include="PermissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegionService.cs" />
     <Compile Include="RoleService.cs" />
     <Compile Include="ZSZDbContext.cs" />
   </ItemGroup>

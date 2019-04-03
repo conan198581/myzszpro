@@ -13,5 +13,15 @@ namespace RPZSZ.IService
         long AddNewCity(string cityName);
 
         CityDTO[] GetAll();
+
+        CityDTO GetById(long id);
+
+        bool CheckCityByName(string name);
+
+        CityDTO GetByName(string name);
+
+        void Update(long id, string name);
+
+        void Delete(long id);
     }
 }

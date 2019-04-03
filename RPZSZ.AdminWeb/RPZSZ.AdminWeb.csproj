@@ -1446,6 +1446,9 @@
     <Content Include="Views\AdminUser\List.cshtml" />
     <Content Include="Views\AdminUser\Add.cshtml" />
     <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\City\List.cshtml" />
+    <Content Include="Views\City\Add.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1460,7 +1463,6 @@
     <Folder Include="lib\Highcharts\4.1.7\exporting-server\java\highcharts-export\highcharts-export-web\target\generated-sources\annotations\" />
     <Folder Include="lib\Highcharts\4.1.7\exporting-server\java\highcharts-export\highcharts-export-web\target\surefire\" />
     <Folder Include="lib\ueditor\1.4.3\net\Bin\" />
-    <Folder Include="Views\City\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RPZSZ.CommonMVC\RPZSZ.CommonMVC.csproj">

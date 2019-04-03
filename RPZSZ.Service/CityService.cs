@@ -25,12 +25,48 @@ namespace RPZSZ.Service
             }
         }
 
+        public bool CheckCityByName(string name)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<CityEntity> baseService = new BaseService<CityEntity>(ctx);
+                if (baseService.GetAll().Any(x => x.Name == name))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public CityDTO GetByName(string name)
+        {
+            using(ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<CityEntity> baseService = new BaseService<CityEntity>(ctx);
+                return ToDTO(baseService.GetAll().Where(x => x.Name == name).SingleOrDefault());
+            }
+        }
+
+
+
         public CityDTO[] GetAll()
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 BaseService<CityEntity> baseService = new BaseService<CityEntity>(ctx);
                 return baseService.GetAll().ToList().Select(x=>ToDTO(x)).ToArray();
+            }
+        }
+
+        public CityDTO GetById(long id)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<CityEntity> cityService = new BaseService<CityEntity>(ctx);
+                return ToDTO(cityService.GetById(id));
             }
         }
 
@@ -41,6 +77,27 @@ namespace RPZSZ.Service
             citydto.Name = cityEntity.Name;
             citydto.CreateTime = cityEntity.CreateDateTime;
             return citydto;
+        }
+
+        public void Update(long id, string name)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<CityEntity> baseService = new BaseService<CityEntity>(ctx);
+                var item = baseService.GetById(id);
+                item.Name = name;
+                ctx.SaveChanges();
+            }
+        }
+
+        public void Delete(long id)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<CityEntity> baseService = new BaseService<CityEntity>(ctx);
+                baseService.MarkDelete(id);
+                
+            }
         }
     }
 }
