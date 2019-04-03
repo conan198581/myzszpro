@@ -1,4 +1,5 @@
-﻿using RPZSZ.IService;
+﻿using RPZSZ.Common;
+using RPZSZ.IService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,6 @@ namespace RPZSZ.AdminWeb.Filters
     public class ZSZAuthorizationFilter : IAuthorizationFilter
     {
         
-        //public IAdminUserService AdminUserService { get; set; }
-
-       
-        
-        
-
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             CheckAuthorizeAttribute[] permissionAttrs = (CheckAuthorizeAttribute[])filterContext.ActionDescriptor.GetCustomAttributes(typeof(CheckAuthorizeAttribute),false);
@@ -27,8 +22,20 @@ namespace RPZSZ.AdminWeb.Filters
             long? adminUserId = (long?)filterContext.HttpContext.Session["AdminUserId"];
             if (adminUserId == null)
             {
-                //说明没有登录
-                filterContext.Result = new ContentResult { Content = "没有登录" };
+                //判断 是不是ajax请求
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    var ajaxResult = new AjaxResult<string>() {
+                        Status = "Redirect",
+                        ErrorMsg = "没有登录",
+                        Data = "/main/login"
+                    };
+                }
+                else
+                {
+                    //说明没有登录
+                    filterContext.Result = new ContentResult { Content = "没有登录" };
+                }
                 return;
             }
 
@@ -40,7 +47,19 @@ namespace RPZSZ.AdminWeb.Filters
             {
                 if (!(adminUserService.HasPermission(adminUserId.Value, permissionItem.Permission)))
                 {
-                    filterContext.Result = new ContentResult { Content = "没有相关权限" };
+                    if (filterContext.HttpContext.Request.IsAjaxRequest())
+                    {
+                        var ajaxResult = new AjaxResult<string>()
+                        {
+                            Status = "Redirect",
+                            ErrorMsg = $"没有{permissionItem.Permission}相关权限",
+                            Data = "/main/login"
+                        };
+                    }
+                    else
+                    {
+                        filterContext.Result = new ContentResult { Content = $"没有{permissionItem.Permission}相关权限" };
+                    }
                     return;
                 }
             }
