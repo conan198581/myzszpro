@@ -157,7 +157,8 @@ namespace RPZSZ.Service
                 if (adminUserItem != null)
                 {
                     var rolelist = adminUserItem.Roles;
-                    return rolelist.SelectMany(r => r.Permissions).Any(x => x.Name == permissionName);
+                    //return rolelist.SelectMany(r => r.Permissions).Any(x => x.Name == permissionName);
+                    return rolelist.SelectMany(r => r.Permissions).Any(x => x.Description == permissionName);
                 }
                 else
                 {

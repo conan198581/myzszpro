@@ -1325,6 +1325,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Filters\CheckAuthorizeAttribute.cs" />
     <Compile Include="Filters\FilterConfig.cs" />
     <Compile Include="Filters\ZSZAuthorizationFilter.cs" />
     <Compile Include="Filters\ZSZExceptionFilter.cs" />

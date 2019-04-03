@@ -1,4 +1,5 @@
-﻿using RPZSZ.AdminWeb.Models;
+﻿using RPZSZ.AdminWeb.Filters;
+using RPZSZ.AdminWeb.Models;
 using RPZSZ.Common;
 using RPZSZ.CommonMVC;
 using RPZSZ.IService;
@@ -23,7 +24,9 @@ namespace RPZSZ.AdminWeb.Controllers
             return View();
         }
 
-
+        [CheckAuthorize("Admin.Add")]
+        [CheckAuthorize("Admin.Update")]
+        [CheckAuthorize("Admin.Delete")]
         public ActionResult List()
         {
             var adminUserList = AdminUserService.GetAll();

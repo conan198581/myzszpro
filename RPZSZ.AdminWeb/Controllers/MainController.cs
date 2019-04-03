@@ -40,6 +40,7 @@ namespace RPZSZ.AdminWeb.Controllers
             bool exists = AdminUserService.CheckLogin(loginViewModel.PhoneNum, loginViewModel.Password);
             if (exists)
             {
+                Session["AdminUserId"] = AdminUserService.GetByPhoneNum(loginViewModel.PhoneNum).Id;
                 return Json(new AjaxResult<string> { Status = "ok" });
             }
             else
