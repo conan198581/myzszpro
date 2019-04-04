@@ -1322,8 +1322,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\CommunityController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
+    <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Filters\CheckAuthorizeAttribute.cs" />
     <Compile Include="Filters\FilterConfig.cs" />
@@ -1344,7 +1346,11 @@
     <Compile Include="Models\AdminUserAddGetModel.cs" />
     <Compile Include="Models\AdminUserEditGetModel.cs" />
     <Compile Include="Models\AdminUserEditPostModel.cs" />
+    <Compile Include="Models\CommunityAddGetModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RegionAddPostModel.cs" />
+    <Compile Include="Models\RegionEditGetModel.cs" />
+    <Compile Include="Models\RegionEditPostModel.cs" />
     <Compile Include="Models\RoleEditPostModel.cs" />
     <Compile Include="Models\RoleEditViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1449,6 +1455,11 @@
     <Content Include="Views\City\List.cshtml" />
     <Content Include="Views\City\Add.cshtml" />
     <Content Include="Views\City\Edit.cshtml" />
+    <Content Include="Views\Region\List.cshtml" />
+    <Content Include="Views\Region\Add.cshtml" />
+    <Content Include="Views\Region\Edit.cshtml" />
+    <Content Include="Views\Community\List.cshtml" />
+    <Content Include="Views\Community\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

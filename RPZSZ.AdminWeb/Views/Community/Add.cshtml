@@ -1,0 +1,136 @@
+﻿@using RPZSZ.DTO
+@model RPZSZ.AdminWeb.Models.CommunityAddGetModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="~/lib/html5.js"></script>
+    <script type="text/javascript" src="~/lib/respond.min.js"></script>
+    <script type="text/javascript" src="~/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <link href="~/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+    <!--[if IE 6]>
+    <script type="text/javascript" src="~/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>新建区域</title>
+</head>
+<body>
+    <div class="pd-20">
+        <form action="" method="" class="form form-horizontal" id="formRoleAdd">
+            <div class="row cl">
+                <label class="form-label col-2"><span class="c-red">*</span>所属城市：</label>
+                <div class="formControls col-10">
+                    @Html.DropDownList("cityId", new SelectList(Model.CityDTOs, nameof(CityDTO.Id), nameof(CityDTO.Name)))
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-2"><span class="c-red">*</span>所属区域：</label>
+                <div class="formControls col-10">
+                    <select name="RegionId" id="RegionId"></select>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-2"><span class="c-red">*</span>小区名称：</label>
+                <div class="formControls col-10">
+                    <input type="text" class="input-text" value="" placeholder="" id="name" name="name" datatype="*4-16" nullmsg="小区不能为空">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-2"><span class="c-red">*</span>小区位置：</label>
+                <div class="formControls col-10">
+                    <input type="text" class="input-text" value="" placeholder="" id="Location" name="Location" datatype="*4-16" nullmsg="小区位置不能为空">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-2"><span class="c-red">*</span>小区交通：</label>
+                <div class="formControls col-10">
+                    <input type="text" class="input-text" value="" placeholder="" id="Traffic" name="Traffic" datatype="*4-16" nullmsg="小区交通不能为空">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-2">建成时间：</label>
+                <div class="formControls col-10">
+                    <input type="text" class="input-text" value="" placeholder="" id="BuiltYear" name="BuiltYear" datatype="*4-16">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-10 col-offset-2">
+                    <button type="button" class="btn btn-success radius" id="roleAddButton" name="roleAddButton"><i class="icon-ok"></i> 确定</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="~/lib/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/layer/1.9.3/layer.js"></script>
+    <script type="text/javascript" src="~/lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript" src="~/lib/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="~/js/H-ui.js"></script>
+    <script type="text/javascript" src="~/js/H-ui.admin.js"></script>
+    <script>
+        $(function () {
+            $('#roleAddButton').on('click', function () {
+                var formData = $("#formRoleAdd").serializeArray();
+                $.ajax({
+                    url: "/community/Add",
+                    type: "post",
+                    datatype: "json",
+                    data: formData,
+                    success: function (respData) {
+                        if (respData.status == "ok") {
+                            //layer.msg('新增成功', { icon: 1, time: 1000 });
+                            parent.location.reload();
+                        }
+                        else {
+                            layer.msg('新增失败', { icon: 2, time: 1000 });
+                        }
+                    },
+                    error: function () {
+                        layer.msg('通信失败!',{icon:2,time:1000});
+                    }
+                });
+            });
+
+            $("#cityId").change(function () {
+                $.ajax({
+                    url: "/region/GetRegionByCityId",
+                    type: "post",
+                    datatype: "json",
+                    data: { "cityId": $("#cityId").val() },
+                    success: function (resp) {
+                        if(resp.status == "ok")
+                        {
+                            var datalist = resp.data;
+                            if (datalist.length > 0) {
+                                $("#RegionId").empty();
+                                for (var i = 0; i < datalist.length; i++) {
+                                    var optionItem = "<option value='" + datalist[i].id + "'>" + datalist[i].name + "</option>";
+                                    $(optionItem).appendTo("#RegionId");
+                                }
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("通信失败");
+                    }
+                });
+            });
+
+            $("#cityId").change();
+        });
+    </script>
+</body>
+</html>

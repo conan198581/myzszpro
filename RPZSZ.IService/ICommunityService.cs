@@ -10,5 +10,12 @@ namespace RPZSZ.IService
     public interface ICommunityService:IServiceSupport
     {
         CommunityDTO[] GetCommunityByRegionId(long regionId);
+
+        CommunityDTO[] GetAll();
+        CommunityDTO GetById(long communityId);
+
+        long Add(CommunityDTO communityDTO);
+
+        void Update(CommunityDTO communityDTO);
     }
 }
