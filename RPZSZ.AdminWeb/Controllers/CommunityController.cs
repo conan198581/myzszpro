@@ -44,9 +44,30 @@ namespace RPZSZ.AdminWeb.Controllers
             return Json(new AjaxResult<string> { Status="ok"});
         }
 
+        [HttpGet]
         public ActionResult Edit(long id)
         {
-            return View();
+            var viewModel = new CommunityEditGetModel();
+            var communityItem = CommunityService.GetById(id);
+            var regionlist = RegionService.GetRegionsByCityId(communityItem.CityId);
+            viewModel.CommunityDTO = communityItem;
+            viewModel.RegionDTOs = regionlist;
+            viewModel.CityDTOs = CityService.GetAll();
+            return View(viewModel);
+        }
+
+        public ActionResult Edit(CommunityEditPostModel viewModel)
+        {
+            var communitydto = new CommunityDTO() {
+                Id=viewModel.Id,
+                Name =viewModel.Name,
+                RegionId = viewModel.RegionId,
+                Location = viewModel.Location,
+                Traffic = viewModel.Traffic,
+                BuiltYear = viewModel.BuiltYear
+            };
+            CommunityService.Update(communitydto);
+            return Json(new AjaxResult<string> { Status = "ok" });
         }
     }
 }

@@ -1323,6 +1323,7 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
+    <Compile Include="Controllers\IdNameController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
@@ -1347,6 +1348,8 @@
     <Compile Include="Models\AdminUserEditGetModel.cs" />
     <Compile Include="Models\AdminUserEditPostModel.cs" />
     <Compile Include="Models\CommunityAddGetModel.cs" />
+    <Compile Include="Models\CommunityEditGetModel.cs" />
+    <Compile Include="Models\CommunityEditPostModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegionAddPostModel.cs" />
     <Compile Include="Models\RegionEditGetModel.cs" />
@@ -1460,6 +1463,9 @@
     <Content Include="Views\Region\Edit.cshtml" />
     <Content Include="Views\Community\List.cshtml" />
     <Content Include="Views\Community\Add.cshtml" />
+    <Content Include="Views\Community\Edit.cshtml" />
+    <Content Include="Views\IdName\List.cshtml" />
+    <Content Include="Views\IdName\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -46,6 +46,7 @@
     <Compile Include="IAttachmentService.cs" />
     <Compile Include="ICityService.cs" />
     <Compile Include="ICommunityService.cs" />
+    <Compile Include="IIdNameService.cs" />
     <Compile Include="IHouseAppointmentService.cs" />
     <Compile Include="IHouseService.cs" />
     <Compile Include="IPermissionService.cs" />

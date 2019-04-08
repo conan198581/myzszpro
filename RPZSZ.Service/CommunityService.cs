@@ -42,7 +42,7 @@ namespace RPZSZ.Service
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 BaseService<CommunityEntity> baseService = new BaseService<CommunityEntity>(ctx);
-                var dtoItem = baseService.GetAll().Include(x => x.Region).Where(x => x.Id == communityId).SingleOrDefault();
+                var dtoItem = baseService.GetAll().Include(x => x.Region).Include(y=>y.Region.City).AsNoTracking().Where(x => x.Id == communityId).SingleOrDefault();
                 return ToDTO(dtoItem);
             }
         }
@@ -89,6 +89,8 @@ namespace RPZSZ.Service
             communityDto.Traffic = communityEntity.Traffic;
             communityDto.BuiltYear = communityEntity.BuiltYear;
             communityDto.CreateTime = communityEntity.CreateDateTime;
+            communityDto.CityId = communityEntity.Region.CityId;
+            communityDto.CityName = communityEntity.Region.City.Name;
             return communityDto;
         }
     }

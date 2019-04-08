@@ -14,5 +14,8 @@ namespace RPZSZ.DTO
         public string Location { get; set; }
         public string Traffic { get; set; }
         public int? BuiltYear { get; set; }
+        public long CityId { get; set; }
+        public string CityName { get; set; }
+
     }
 }
