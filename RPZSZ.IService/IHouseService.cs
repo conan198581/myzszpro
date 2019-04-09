@@ -13,5 +13,7 @@ namespace RPZSZ.IService
         HouseDTO GetById(long id);
         //获取typeId这种房源类别下cityId这个城市中房源的总数量
         long GetTotalCount(long cityId, long typeId);
+
+        HouseDTO[] GetPagedData(long cityId, int pageSize, int currentIndex);
     }
 }

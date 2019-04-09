@@ -37,6 +37,16 @@ namespace RPZSZ.Service
             }
         }
 
+        public HouseDTO[] GetPagedData(long cityId, int pageSize, int currentIndex)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
+                var datalist = baseService.GetAll().Include(x => x.Community).Include(x => x.Community.Region).Include(x => x.Community.Region.City).Include(x => x.Attachments).Include(x => x.HousePics).Include(x => x.RoomType).Include(x => x.Status).Include(x => x.DecorateStatus).Include(x => x.Type).Where(x => x.Community.Region.CityId == cityId).OrderBy(x => x.CreateDateTime).Skip(currentIndex).Take(pageSize);
+                return datalist.ToList().Select(x => ToDto(x)).ToArray();
+            }
+        }
+
         //获取typeId这种房源类别下cityId这个城市中房源的总数量
         public long GetTotalCount(long cityId, long typeId)
         {

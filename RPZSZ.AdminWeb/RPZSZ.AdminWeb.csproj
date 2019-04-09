@@ -1323,6 +1323,7 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CommunityController.cs" />
+    <Compile Include="Controllers\HouseController.cs" />
     <Compile Include="Controllers\IdNameController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
@@ -1357,6 +1358,7 @@
     <Compile Include="Models\RoleEditPostModel.cs" />
     <Compile Include="Models\RoleEditViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\AdminHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -1466,6 +1468,7 @@
     <Content Include="Views\Community\Edit.cshtml" />
     <Content Include="Views\IdName\List.cshtml" />
     <Content Include="Views\IdName\Add.cshtml" />
+    <Content Include="Views\House\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
