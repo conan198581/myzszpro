@@ -37,12 +37,12 @@ namespace RPZSZ.Service
             }
         }
 
-        public HouseDTO[] GetPagedData(long cityId, int pageSize, int currentIndex)
+        public HouseDTO[] GetPagedData(long cityId,long roomTypeId,int pageSize, int currentIndex)
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
-                var datalist = baseService.GetAll().Include(x => x.Community).Include(x => x.Community.Region).Include(x => x.Community.Region.City).Include(x => x.Attachments).Include(x => x.HousePics).Include(x => x.RoomType).Include(x => x.Status).Include(x => x.DecorateStatus).Include(x => x.Type).Where(x => x.Community.Region.CityId == cityId).OrderBy(x => x.CreateDateTime).Skip(currentIndex).Take(pageSize);
+                var datalist = baseService.GetAll().Include(x => x.Community).Include(x => x.Community.Region).Include(x => x.Community.Region.City).Include(x => x.Attachments).Include(x => x.HousePics).Include(x => x.RoomType).Include(x => x.Status).Include(x => x.DecorateStatus).Include(x => x.Type).Where(x => x.Community.Region.CityId == cityId&&x.RoomTypeId== roomTypeId).OrderBy(x => x.CreateDateTime).Skip(currentIndex).Take(pageSize);
                 return datalist.ToList().Select(x => ToDto(x)).ToArray();
             }
         }

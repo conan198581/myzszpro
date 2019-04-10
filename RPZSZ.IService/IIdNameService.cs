@@ -14,5 +14,7 @@ namespace RPZSZ.IService
         IdNameDTO GetById(long id);
         void Update(IdNameDTO idNameDTO);
         void Delete(long id);
+        IdNameDTO GetByName(string typeName, string name);
+        IdNameDTO[] GetByTypeName(string typeName);
     }
 }

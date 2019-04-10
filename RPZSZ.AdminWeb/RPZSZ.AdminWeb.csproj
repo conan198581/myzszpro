@@ -1351,6 +1351,7 @@
     <Compile Include="Models\CommunityAddGetModel.cs" />
     <Compile Include="Models\CommunityEditGetModel.cs" />
     <Compile Include="Models\CommunityEditPostModel.cs" />
+    <Compile Include="Models\HouseAddGetModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegionAddPostModel.cs" />
     <Compile Include="Models\RegionEditGetModel.cs" />
@@ -1469,6 +1470,7 @@
     <Content Include="Views\IdName\List.cshtml" />
     <Content Include="Views\IdName\Add.cshtml" />
     <Content Include="Views\House\List.cshtml" />
+    <Content Include="Views\House\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -47,6 +47,30 @@ namespace RPZSZ.Service
             }
         }
 
+        public IdNameDTO GetByName(string typeName, string name)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<IdNameEntity> service = new BaseService<IdNameEntity>(ctx);
+                var item = service.GetAll().Where(x => x.TypeName == typeName && x.Name == name).SingleOrDefault();
+                if (item == null)
+                {
+                    throw new Exception($"没有这种{typeName}类型的{name}名称");
+                }
+                return ToDTO(item);
+                
+            }
+        }
+
+        public IdNameDTO[] GetByTypeName(string typeName)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<IdNameEntity> baseService = new BaseService<IdNameEntity>(ctx);
+                return baseService.GetAll().Where(x => x.TypeName == typeName).ToList().Select(x => ToDTO(x)).ToArray();
+            }
+        }
+
         public void Update(IdNameDTO idNameDTO)
         {
             using (ZSZDbContext ctx = new ZSZDbContext())

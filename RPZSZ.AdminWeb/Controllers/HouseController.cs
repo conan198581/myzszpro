@@ -12,6 +12,8 @@ namespace RPZSZ.AdminWeb.Controllers
     {
         public IHouseService HouseService { get; set; }
         public IAdminUserService AdminUserService { get; set; }
+
+        public IIdNameService IdNameService { get; set; }
         
         // GET: House
         public ActionResult Index()
@@ -19,7 +21,7 @@ namespace RPZSZ.AdminWeb.Controllers
             return View();
         }
 
-        public ActionResult List(int pageIndex = 1)
+        public ActionResult List(string roomType,string name,int pageIndex = 1)
         {
             long userId = (long)AdminHelper.GetSessionAdminUserId(HttpContext);
             long? cityId = AdminUserService.GetById(userId).CityId;
@@ -27,9 +29,16 @@ namespace RPZSZ.AdminWeb.Controllers
             {
                 return Content("总部人员，不能参与房源业务");
             }
-            
-            var houseList = HouseService.GetPagedData(cityId.Value, 10, (pageIndex - 1) * 10);
+            long roomTypeId = IdNameService.GetByName(roomType, name).Id;
+            var houseList = HouseService.GetPagedData(cityId.Value, roomTypeId, 10, (pageIndex - 1) * 10);
             return View(houseList);
+        }
+
+        public ActionResult Add()
+        {
+
+
+            return View();
         }
     }
 }
