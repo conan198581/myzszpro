@@ -1,5 +1,5 @@
 ﻿@using RPZSZ.DTO
-@model RPZSZ.AdminWeb.Models.AdminUserAddGetModel
+@model RPZSZ.AdminWeb.Models.HouseAddGetModel
 @{
     Layout = null;
 }
@@ -35,7 +35,7 @@
                 <label class="form-label col-2"><span class="c-red">*</span>区域：</label>
                 <div class="formControls col-2">
                     @*<input type="text" class="input-text" value="" placeholder="" id="phoneNum" name="phoneNum" datatype="*4-16" nullmsg="手机号不能为空">*@
-                    @Html.DropDownList("RegionId", new SelectList(Model.Cities, nameof(CityDTO.Id), nameof(CityDTO.Name)))
+                    @Html.DropDownList("RegionId", new SelectList(Model.Regions, nameof(RegionDTO.Id), nameof(RegionDTO.Name)))
                 </div>
                 <label class="form-label col-2"><span class="c-red">*</span>小区：</label>
                 <div class="formControls col-2">
@@ -43,59 +43,78 @@
                 </div>
                 <label class="form-label col-2"><span class="c-red">*</span>房型：</label>
                 <div class="formControls col-2">
-                    <select name="CommunityId" id="CommunityId"></select>
+                    @Html.DropDownList("TypeId", new SelectList(Model.Types, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
                 </div>
 
             </div>
             <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>姓名：</label>
-                <div class="formControls col-10">
-                    <input type="text" class="input-text" value="" placeholder="" id="name" name="name" datatype="*4-16" nullmsg="姓名不能为空">
+                <label class="form-label col-2"><span class="c-red">*</span>地址：</label>
+                <div class="formControls col-6">
+                    <input type="text" class="input-text" value="" placeholder="" id="Address" name="Address" datatype="*4-16" nullmsg="地址不能为空">
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>月租金：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text" value="" placeholder="" id="MonthRent" name="MonthRent" datatype="*4-16" nullmsg="租金不能为空">元
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>初始密码：</label>
-                <div class="formControls col-10">
-                    <input type="text" class="input-text" value="" placeholder="" id="password" name="password" datatype="*4-16" nullmsg="密码不能为空">
+                <label class="form-label col-2"><span class="c-red">*</span>状态：</label>
+                <div class="formControls col-2">
+                    @Html.DropDownList("StatusId", new SelectList(Model.Status, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>面积：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text" value="" placeholder="" id="Area" name="Area" datatype="*4-16" nullmsg="面积不能为空">平米
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>装修：</label>
+                <div class="formControls col-2">
+                    @Html.DropDownList("DecorateStatusId", new SelectList(Model.DecorateStatus, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>确认密码：</label>
-                <div class="formControls col-10">
-                    <input type="text" class="input-text" value="" placeholder="" id="ConfirmPassword" name="ConfirmPassword" datatype="*4-16" nullmsg="确认密码不能为空">
+                <label class="form-label col-2"><span class="c-red">*</span>楼层：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text" value="" placeholder="层数" id="FloorIndex" name="FloorIndex" datatype="*4-16" nullmsg="层数不能为空">
+                    <input type="text" class="input-text" value="" placeholder="总层" id="TotalFloorCount" name="TotalFloorCount" datatype="*4-16" nullmsg="总层不能为空">
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>朝向：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text" value="" placeholder="" id="Direction" name="Direction" datatype="*4-16" nullmsg="朝向不能为空">
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>可看房时间：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="lookableDateTime" name="lookableDateTime" />
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>邮箱：</label>
-                <div class="formControls col-10">
-                    <input type="text" class="input-text" value="" placeholder="" id="Email" name="Email" datatype="*4-16" nullmsg="邮箱不能为空">
+                <label class="form-label col-2"><span class="c-red">*</span>入住时间：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="CheckInDateTime" name="CheckInDateTime" />
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>业主姓名：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text" value="" placeholder="" id="OwnerName" name="OwnerName" datatype="*4-16" nullmsg="业主姓名不能为空">
+                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>业主电话：</label>
+                <div class="formControls col-2">
+                    <input type="text" class="input-text" value="" placeholder="" id="ownerPhoneNum" name="ownerPhoneNum" datatype="*4-16" nullmsg="业主电话不能为空">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-2"><span class="c-red">*</span>城市：</label>
+                <label class="form-label col-2"><span class="c-red">*</span>房屋描述：</label>
                 <div class="formControls col-10">
-                    @Html.DropDownList("cityId", new SelectList(Model.Cities, "Id", "Name"))
+                    <textarea id="description" name="description"></textarea>
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-2">所有角色：</label>
-                <div class="formControls col-10">
-                    <dl class="permission-list">
-                        <dd>
-                            <dl class="cl permission-list2">
-                                <dd>
-                                    @foreach (var item in Model.Roles)
-                                    {
-                                        <label class="">
-                                            <input type="checkbox" value="@item.Id" name="roleIds" id="roleIds">
-                                            @item.Name
-                                        </label>
-                                    }
-                                </dd>
-                            </dl>
-                        </dd>
-                    </dl>
-                </div>
+                <label class="form-label col-2"><span class="c-red">*</span>配置设施：</label>
+                @foreach (var att in Model.Attachments)
+                {
+                    <div class="formControls col-2">
+                        <input type="checkbox" id="attachmentIds_@att.Id" name="attachmentIds" value="@att.Id" />
+                        <label for="attachmentIds_@att.Id">@att.Name</label>
+                    </div>
+                }
             </div>
             <div class="row cl">
                 <div class="col-10 col-offset-2">

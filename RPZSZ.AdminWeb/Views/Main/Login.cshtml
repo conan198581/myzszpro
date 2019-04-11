@@ -87,6 +87,7 @@
                 success: function (resp) {
                     if (resp.status == "ok") {
                         alert("登录成功");
+                        location.href = "/main/index";
                     }
                     else {
                         alert("错误是：" + resp.errorMsg);
