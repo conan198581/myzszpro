@@ -23,7 +23,7 @@ namespace RPZSZ.Service
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 BaseService<AttachmentEntity> baseService = new BaseService<AttachmentEntity>(ctx);
-                return baseService.GetAll().Select(x => ToDTO(x)).ToArray();
+                return baseService.GetAll().ToList().Select(x => ToDTO(x)).ToArray();
             }
         }
 
