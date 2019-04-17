@@ -1352,6 +1352,7 @@
     <Compile Include="Models\CommunityEditGetModel.cs" />
     <Compile Include="Models\CommunityEditPostModel.cs" />
     <Compile Include="Models\HouseAddGetModel.cs" />
+    <Compile Include="Models\HouseAddPostModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegionAddPostModel.cs" />
     <Compile Include="Models\RegionEditGetModel.cs" />

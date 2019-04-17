@@ -130,7 +130,8 @@
     <script type="text/javascript" src="~/js/H-ui.js"></script>
     <script type="text/javascript" src="~/js/H-ui.admin.js"></script>
     <script>
-        $(function () {
+    $(function () {
+        
             $('#adminUserAddButton').on('click', function () {
                 var formData = $("#formAdminUserAdd").serializeArray();
                 $.ajax({
@@ -152,7 +153,33 @@
                     }
                 });
             });
+        $("#RegionId").change(function () {
+            var regionId = $("#RegionId").val();
+            $.ajax({
+                url: "/Community/GetCommunityByRegionId",
+                type: "post",
+                datatype: "json",
+                data: { "regionId": regionId },
+                success: function (respData) {
+                    if (respData.status == "ok") {
+                        var dataResult = respData.data;
+                        $("#CommunityId").empty();
+                        if (dataResult != null && dataResult.length > 0) {
+                            for (var i = 0; i < dataResult.length; i++) {
+                                var item = $("<option value=" + dataResult[i].id + ">" + dataResult[i].name + "</option>");
+                                $("#CommunityId").append(item);
+                            }
+                        }
+                    }
+                },
+                error: function () {
+                    alert("通过regionid获取区域通信失败")
+                }
+            });
         });
+
+        $("#RegionId").change();
+    });
     </script>
 </body>
 </html>

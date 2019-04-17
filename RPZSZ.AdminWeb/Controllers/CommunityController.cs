@@ -56,6 +56,7 @@ namespace RPZSZ.AdminWeb.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
         public ActionResult Edit(CommunityEditPostModel viewModel)
         {
             var communitydto = new CommunityDTO() {
@@ -68,6 +69,13 @@ namespace RPZSZ.AdminWeb.Controllers
             };
             CommunityService.Update(communitydto);
             return Json(new AjaxResult<string> { Status = "ok" });
+        }
+
+        [HttpPost]
+        public ActionResult GetCommunityByRegionId(long regionId)
+        {
+            var communityList = CommunityService.GetCommunityByRegionId(regionId);
+            return Json(new AjaxResult<CommunityDTO[]> { Status = "ok", Data = communityList });
         }
     }
 }

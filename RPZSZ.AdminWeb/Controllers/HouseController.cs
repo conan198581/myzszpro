@@ -56,5 +56,11 @@ namespace RPZSZ.AdminWeb.Controllers
             houseAddGetModel.Attachments = AttachmentService.GetAll();
             return View(houseAddGetModel);
         }
+
+        [HttpPost]
+        public ActionResult Add(HouseAddPostModel viewModel)
+        {
+            return View();
+        }
     }
 }
