@@ -43,6 +43,7 @@ namespace RPZSZ.Service
             {
                 BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
                 var datalist = baseService.GetAll().Include(x => x.Community).Include(x => x.Community.Region).Include(x => x.Community.Region.City).Include(x => x.Attachments).Include(x => x.HousePics).Include(x => x.RoomType).Include(x => x.Status).Include(x => x.DecorateStatus).Include(x => x.Type).Where(x => x.Community.Region.CityId == cityId&&x.RoomTypeId== roomTypeId).OrderBy(x => x.CreateDateTime).Skip(currentIndex).Take(pageSize);
+                
                 return datalist.ToList().Select(x => ToDto(x)).ToArray();
             }
         }
@@ -54,6 +55,33 @@ namespace RPZSZ.Service
             {
                 BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
                 return baseService.GetAll().Include(x => x.Community.Region.City).Where(x => x.Community.Region.CityId == cityId && x.TypeId == typeId).LongCount();
+            }
+        }
+
+
+        public long Add(HouseDTO houseDTO)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
+                HouseEntity houseEntity = new HouseEntity();
+                houseEntity.Address = houseDTO.Address;
+                houseEntity.Area = houseDTO.Area;
+                houseEntity.CheckInDateTime = houseDTO.CheckInDateTime;
+                houseEntity.CommunityId = houseDTO.CommunityId;
+                houseEntity.DecorateStatusId = houseDTO.DecorateStatusId;
+                houseEntity.Description = houseDTO.Description;
+                houseEntity.Direction = houseDTO.Direction;
+                houseEntity.FloorIndex = houseDTO.FloorIndex;
+                houseEntity.LookableDateTime = houseDTO.LookableDateTime;
+                houseEntity.MonthRent = houseDTO.MonthRent;
+                houseEntity.OwnerName = houseDTO.OwnerName;
+                houseEntity.OwnerPhoneNum = houseDTO.OwnerPhoneNum;
+                houseEntity.RoomTypeId = houseDTO.RoomTypeId;
+                houseEntity.StatusId = houseDTO.StatusId;
+                houseEntity.TotalFloorCount = houseDTO.TotalFloorCount;
+                houseEntity.TypeId = houseDTO.TypeId;
+                return baseService.AddItem(houseEntity);
             }
         }
 

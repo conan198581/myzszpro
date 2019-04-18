@@ -1,5 +1,7 @@
 ﻿using RPZSZ.AdminWeb.Models;
 using RPZSZ.AdminWeb.Tools;
+using RPZSZ.Common;
+using RPZSZ.DTO;
 using RPZSZ.IService;
 using System;
 using System.Collections.Generic;
@@ -36,11 +38,14 @@ namespace RPZSZ.AdminWeb.Controllers
             }
             long roomTypeId = IdNameService.GetByName(roomType, name).Id;
             var houseList = HouseService.GetPagedData(cityId.Value, roomTypeId, 10, (pageIndex - 1) * 10);
-            return View(houseList);
+            var houselistviewmodel = new HouseListModel();
+            houselistviewmodel.RoomTypeId = roomTypeId;
+            houselistviewmodel.HouseList = houseList;
+            return View(houselistviewmodel);
         }
 
         [HttpGet]
-        public ActionResult Add()
+        public ActionResult Add(long id)
         {
             var houseAddGetModel = new HouseAddGetModel();
             long userId = (long)AdminHelper.GetSessionAdminUserId(HttpContext);
@@ -54,13 +59,33 @@ namespace RPZSZ.AdminWeb.Controllers
             houseAddGetModel.Status = IdNameService.GetByTypeName("状态");
             houseAddGetModel.DecorateStatus = IdNameService.GetByTypeName("装修状态");
             houseAddGetModel.Attachments = AttachmentService.GetAll();
+            houseAddGetModel.RoomTypeId = id;
             return View(houseAddGetModel);
         }
 
         [HttpPost]
         public ActionResult Add(HouseAddPostModel viewModel)
         {
-            return View();
+            HouseDTO houseDTO = new HouseDTO();
+            houseDTO.CommunityId = viewModel.CommunityId;
+            houseDTO.RoomTypeId = viewModel.RoomTypeId;
+            houseDTO.Address = viewModel.Address;
+            houseDTO.MonthRent = viewModel.MonthRent;
+            houseDTO.StatusId = viewModel.StatusId;
+            houseDTO.Area = viewModel.Area;
+            houseDTO.DecorateStatusId = viewModel.DecorateStatusId;
+            houseDTO.TotalFloorCount = viewModel.TotalFloorCount;
+            houseDTO.FloorIndex = viewModel.FloorIndex;
+            houseDTO.TypeId = viewModel.TypeId;
+            houseDTO.Direction = viewModel.Direction;
+            houseDTO.LookableDateTime = viewModel.lookableDateTime;
+            houseDTO.CheckInDateTime = viewModel.CheckInDateTime;
+            houseDTO.OwnerName = viewModel.OwnerName;
+            houseDTO.OwnerPhoneNum = viewModel.ownerPhoneNum;
+            houseDTO.Description = viewModel.description;
+            long id = HouseService.Add(houseDTO);
+            AttachmentService.UpdateAttachementsByHoueId(id, viewModel.attachmentIds);
+            return Json(new AjaxResult<string> { Status = "ok" });
         }
     }
 }

@@ -15,5 +15,6 @@ namespace RPZSZ.IService
         long GetTotalCount(long cityId, long typeId);
 
         HouseDTO[] GetPagedData(long cityId,long roomTypeId,int pageSize, int currentIndex);
+        long Add(HouseDTO houseDTO);
     }
 }

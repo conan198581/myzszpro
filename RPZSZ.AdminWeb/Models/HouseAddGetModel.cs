@@ -18,5 +18,7 @@ namespace RPZSZ.AdminWeb.Models
         public IdNameDTO[] DecorateStatus { get; set; }
         //配置设施
         public AttachmentDTO[] Attachments { get; set; }
+
+        public long RoomTypeId { get; set; }
     }
 }

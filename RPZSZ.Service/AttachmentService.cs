@@ -46,7 +46,25 @@ namespace RPZSZ.Service
                 var attachments = houseObj.Attachments.Select(x => ToDTO(x)).ToArray();
                 return attachments;
             }
-        } 
+        }
+
+        public void UpdateAttachementsByHoueId(long houseId, long[] attachementIds)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<HouseEntity> houseServ = new BaseService<HouseEntity>(ctx);
+                BaseService<AttachmentEntity> attachmentServ = new BaseService<AttachmentEntity>(ctx);
+                var houseObj = houseServ.GetById(houseId);
+
+                var attachmentList = attachmentServ.GetAll().Where(x => attachementIds.Contains(x.Id));
+                houseObj.Attachments.Clear();
+                foreach (var item in attachmentList)
+                {
+                    houseObj.Attachments.Add(item);
+                }
+                ctx.SaveChanges();
+            }
+        }
         #endregion
 
         private AttachmentDTO ToDTO(AttachmentEntity attachmentEntity)

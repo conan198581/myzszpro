@@ -11,5 +11,7 @@ namespace RPZSZ.IService
     {
         AttachmentDTO[] GetAll();
         AttachmentDTO[] GetAttachmentsByHouseId(long houseId);
+
+        void UpdateAttachementsByHoueId(long houseId, long[] attachementIds);
     }
 }

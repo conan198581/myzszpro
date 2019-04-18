@@ -30,7 +30,8 @@
 </head>
 <body>
     <div class="pd-20">
-        <form action="" method="" class="form form-horizontal" id="formAdminUserAdd">
+        <form action="" method="" class="form form-horizontal" id="formHouseAdd">
+            <input type="hidden" id="roomTypeId" name="roomTypeId" value="@Model.RoomTypeId"/>
             <div class="row cl">
                 <label class="form-label col-2"><span class="c-red">*</span>区域：</label>
                 <div class="formControls col-2">
@@ -103,7 +104,7 @@
             <div class="row cl">
                 <label class="form-label col-2"><span class="c-red">*</span>房屋描述：</label>
                 <div class="formControls col-10">
-                    <textarea id="description" name="description"></textarea>
+                    <textarea id="description" name="description" cols="100" rows="10"></textarea>
                 </div>
             </div>
             <div class="row cl">
@@ -118,7 +119,7 @@
             </div>
             <div class="row cl">
                 <div class="col-10 col-offset-2">
-                    <button type="button" class="btn btn-success radius" id="adminUserAddButton" name="adminUserAddButton"><i class="icon-ok"></i> 确定</button>
+                    <button type="button" class="btn btn-success radius" id="houseAddButton" name="houseAddButton"><i class="icon-ok"></i> 确定</button>
                 </div>
             </div>
         </form>
@@ -132,10 +133,10 @@
     <script>
     $(function () {
         
-            $('#adminUserAddButton').on('click', function () {
-                var formData = $("#formAdminUserAdd").serializeArray();
+            $('#houseAddButton').on('click', function () {
+                var formData = $("#formHouseAdd").serializeArray();
                 $.ajax({
-                    url: "/AdminUser/Add",
+                    url: "/House/Add",
                     type: "post",
                     datatype: "json",
                     data: formData,
