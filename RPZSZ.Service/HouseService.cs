@@ -18,6 +18,10 @@ namespace RPZSZ.Service
             {
                 BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
                 var datalist = baseService.GetAll().Include(x => x.Community).Include(x => x.Community.Region).Include(x => x.Community.Region.City).Include(x => x.Attachments).Include(x => x.HousePics).Include(x => x.RoomType).Include(x => x.Status).Include(x => x.DecorateStatus).Include(x => x.Type);
+                if (datalist == null || datalist.Count() < 1)
+                {
+                    throw new Exception("没有相关数据");
+                }
                 return datalist.ToList().Select(x =>ToDto(x)).ToArray();
             }
             
@@ -119,9 +123,24 @@ namespace RPZSZ.Service
                 OwnerPhoneNum = entity.OwnerPhoneNum,
                 Description = entity.Description,
                 AttachmentIds = entity.Attachments.Select(x => x.Id).ToArray(),
-                FirstThumbUrl = entity.HousePics.FirstOrDefault().ThumbUrl
+                //FirstThumbUrl = entity.HousePics.FirstOrDefault().ThumbUrl
             };
             return houseDto;
+        }
+
+        public void AddHousePic(long houseId, HousePicDTO housePicDTO)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
+                var houseObj = baseService.GetById(houseId);
+                HousePicEntity housePicEntity = new HousePicEntity();
+                housePicEntity.HouseId = housePicDTO.HouseId;
+                housePicEntity.Url = housePicDTO.Url;
+                housePicEntity.ThumbUrl = housePicDTO.ThumbUrl;
+                houseObj.HousePics.Add(housePicEntity);
+                ctx.SaveChanges();
+            }
         }
     }
 }

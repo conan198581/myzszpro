@@ -16,5 +16,7 @@ namespace RPZSZ.IService
 
         HouseDTO[] GetPagedData(long cityId,long roomTypeId,int pageSize, int currentIndex);
         long Add(HouseDTO houseDTO);
+
+        void AddHousePic(long houseId, HousePicDTO housePicDTO);
     }
 }
