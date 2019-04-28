@@ -1478,6 +1478,7 @@
     <Content Include="Views\House\List.cshtml" />
     <Content Include="Views\House\Add.cshtml" />
     <Content Include="Views\House\PicUpload.cshtml" />
+    <Content Include="Views\House\ShowPicList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -24,6 +24,8 @@ namespace RPZSZ.AdminWeb.Controllers
         public IAttachmentService AttachmentService { get; set; }
 
         public IRegionService RegionService { get; set; }
+
+        public IHousePicService HousePicService { get; set; }
         
         // GET: House
         public ActionResult Index()
@@ -104,8 +106,8 @@ namespace RPZSZ.AdminWeb.Controllers
         {
             string filemd5 = CommonHelper.CalcMD5(file.InputStream);
             string fileExt = Path.GetExtension(file.FileName);
-            string virtualPath = "~/upload/" + DateTime.Now.ToString("yyyy/MM/dd") +"/"+ filemd5 + fileExt;
-            string thumbPath = "~/upload/" + DateTime.Now.ToString("yyyy/MM/dd") + "/" + "thumb_"+filemd5 + fileExt;
+            string virtualPath = "/upload/" + DateTime.Now.ToString("yyyy/MM/dd") +"/"+ filemd5 + fileExt;
+            string thumbPath = "/upload/" + DateTime.Now.ToString("yyyy/MM/dd") + "/" + "thumb_"+filemd5 + fileExt;
             string phyPath = HttpContext.Server.MapPath(virtualPath);
             string thumbPhyPath = HttpContext.Server.MapPath(thumbPath);
             new FileInfo(phyPath).Directory.Create();//如果目录存在 不创建 不存在 则创建
@@ -125,6 +127,22 @@ namespace RPZSZ.AdminWeb.Controllers
             jobNormal.SaveProcessedImageToFileSystem(file.InputStream, phyPath);
             HouseService.AddHousePic(houseId, new HousePicDTO { HouseId = houseId, Url = virtualPath, ThumbUrl = thumbPath });
             return Json(new AjaxResult<string> { Status="ok"});
+        }
+
+
+        public ActionResult ShowPicList(long houseId)
+        {
+            var housePicList = HouseService.ShowHousePic(houseId);
+            return View(housePicList);
+        }
+
+        public ActionResult DelPic(long[] housePicIds)
+        {
+            foreach (var item in housePicIds)
+            {
+                HousePicService.Delete(item);
+            }
+            return Json(new AjaxResult<string> { Status = "ok" });
         }
 
     }

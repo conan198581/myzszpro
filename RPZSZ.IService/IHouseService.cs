@@ -18,5 +18,7 @@ namespace RPZSZ.IService
         long Add(HouseDTO houseDTO);
 
         void AddHousePic(long houseId, HousePicDTO housePicDTO);
+
+        HousePicDTO[] ShowHousePic(long houseId);
     }
 }

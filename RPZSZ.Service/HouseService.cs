@@ -142,5 +142,23 @@ namespace RPZSZ.Service
                 ctx.SaveChanges();
             }
         }
+
+
+        public HousePicDTO[] ShowHousePic(long houseId)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                BaseService<HouseEntity> baseService = new BaseService<HouseEntity>(ctx);
+                var housePicList = baseService.GetById(houseId).HousePics.Where(x=>x.IsDeleted==false).ToList();
+                return housePicList.Select(x => new HousePicDTO
+                {
+                    Id = x.Id,
+                    HouseId = x.HouseId,
+                    Url = x.Url,
+                    ThumbUrl = x.ThumbUrl,
+                    CreateTime = x.CreateDateTime
+                }).ToArray();
+            }
+        }
     }
 }

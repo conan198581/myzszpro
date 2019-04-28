@@ -97,6 +97,7 @@
     <Compile Include="Entities\SettingEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="HouseAppointmentService.cs" />
+    <Compile Include="HousePicService.cs" />
     <Compile Include="HouseService.cs" />
     <Compile Include="IdNameService.cs" />
     <Compile Include="ModelConfig\AdminLogConfig.cs" />
